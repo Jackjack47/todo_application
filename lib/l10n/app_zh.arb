@@ -5,5 +5,11 @@
   "cancel": "取消",
   "selectAll": "全选",
   "newTodo": "新建",
-  "confirm": "确定"
+  "confirm": "确定",
+  "todoDescriptionHint": "请输入你的待办事项",
+  "todoDescriptionEmptyTip": "待办事项不能为空！",
+  "todoDeadlineHint": "点击为你的待办事项设置截止时间",
+  "todoDeadlineLabel": "截止时间",
+  "todoDeadlineEmptyTip": "请选择截止时间！",
+  "todoDeadlineErrorTip": "截止时间必须晚于当前时间！"
 }

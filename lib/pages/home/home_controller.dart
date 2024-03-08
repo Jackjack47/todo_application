@@ -4,10 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../view_models/todo_item_bean.dart';
-import '../todo_detail/todo_detail_page.dart';
+import '../../view_models/landmark_bean.dart';
 
 class HomeController extends GetxController {
-  RxList<TodoItemBean> todoItemList = RxList([]);
+  RxList<TodoItemBean> todoItemList = RxList([
+    TodoItemBean(
+      todo: "todo",
+      landmarks: [LandmarkBean(landmark: "created", createDate: DateTime.now())],
+      isAchieved: false,
+      checked: false,
+    ),
+    TodoItemBean(
+      todo: "todo1",
+      landmarks: [LandmarkBean(landmark: "created", createDate: DateTime.now())],
+      isAchieved: true,
+      checked: false,
+    )
+  ]);
   RxBool isEditMode = RxBool(false);
 
   bool _allChecked = false;
@@ -33,51 +46,46 @@ class HomeController extends GetxController {
     _allUnchecked = unchecked;
   }
 
-  void edit() {
-    if (isEditMode.value) {
-      exitEditMode();
-    } else {
-      startEditMode();
-    }
-  }
-
-  void startEditMode() {
-    isEditMode.value = true;
-    _todoItemListSubscription = todoItemList.listen(onTodoItemListUpdate);
-  }
-
-  void exitEditMode() {
+  void _exitEditMode() {
     isEditMode.value = false;
     _todoItemListSubscription?.cancel();
     _todoItemListSubscription = null;
     if (!_allUnchecked && todoItemList.isNotEmpty) {
-      todoItemList.value = todoItemList.map((e) => e.copyWith(checked: false)).toList();
+      for (var i = 0; i < todoItemList.length; ++i) {
+        var o = todoItemList[i];
+        if (o.checked) {
+          todoItemList[i] = o.copyWith(checked: false);
+        }
+      }
     }
     _allChecked = false;
     _allUnchecked = true;
   }
 
-  void select(int index) {
-    final item = todoItemList[index];
-    todoItemList[index] = item.copyWith(checked: !item.checked);
+  void onDeleteButtonTap() {
+    isEditMode.value = true;
+    _todoItemListSubscription = todoItemList.listen(onTodoItemListUpdate);
   }
 
-  void selectAll() {
+  void onCancelButtonTap() {
+    _exitEditMode();
+  }
+
+  void onSelectAllButtonTap() {
     todoItemList.value = todoItemList.map((e) => e.copyWith(checked: !_allChecked)).toList();
   }
 
-  void delete() {
-    todoItemList.value = todoItemList.where((e) => !e.checked).toList();
-    exitEditMode();
+  void onListItemTap(int index) {
+    if (isEditMode.value) {
+      final item = todoItemList[index];
+      todoItemList[index] = item.copyWith(checked: !item.checked);
+    }
   }
 
-  void add(BuildContext context) {
-    Navigator.of(context)
-        .push<TodoItemBean>(MaterialPageRoute(builder: (context) => const TodoDetailPage()))
-        .then((data) {
-      if (data != null) {
-        todoItemList.add(data);
-      }
-    });
+  void onFabTap(BuildContext context) {
+    if (isEditMode.value) {
+      todoItemList.value = todoItemList.where((e) => !e.checked).toList();
+      _exitEditMode();
+    }
   }
 }

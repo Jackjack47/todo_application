@@ -5,5 +5,11 @@
   "cancel": "Cancel",
   "selectAll": "Select all",
   "newTodo": "New",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "todoDescriptionHint": "Please enter your todo",
+  "todoDescriptionEmptyTip": "Todo can't be empty!",
+  "todoDeadlineHint": "Click for setting deadline for your todo",
+  "todoDeadlineLabel": "Deadline",
+  "todoDeadlineEmptyTip": "Deadline can't be empty!",
+  "todoDeadlineErrorTip": "Deadline must after now!"
 }

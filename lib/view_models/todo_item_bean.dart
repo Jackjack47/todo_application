@@ -1,35 +1,37 @@
+import './landmark_bean.dart';
+
 class TodoItemBean {
   TodoItemBean({
-    required this.name,
-    required this.createDate,
+    this.id,
+    required this.todo,
+    required this.landmarks,
     required this.isAchieved,
     required this.checked,
   });
 
-  String name;
+  final int? id;
 
-  DateTime createDate;
+  final String todo;
 
-  bool isAchieved;
+  final List<LandmarkBean> landmarks;
 
-  bool checked;
+  final bool isAchieved;
+
+  final bool checked;
 
   TodoItemBean copyWith({
-    String? name,
-    DateTime? createDate,
+    int? id,
+    String? todo,
+    List<LandmarkBean>? landmarks,
     bool? isAchieved,
     bool? checked,
   }) {
     return TodoItemBean(
-      name: name ?? this.name,
-      createDate: createDate ?? this.createDate,
+      id: id ?? this.id,
+      landmarks: landmarks ?? this.landmarks,
+      todo: todo ?? this.todo,
       isAchieved: isAchieved ?? this.isAchieved,
       checked: checked ?? this.checked,
     );
-  }
-
-  @override
-  String toString() {
-    return 'TodoItemBean{name: $name, createDate: $createDate, isAchieved: $isAchieved, checked: $checked}';
   }
 }
