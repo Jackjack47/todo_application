@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:todo_application/pages/home/home_todo_list_item.dart';
+import 'package:todo_application/pages/todo_detail/todo_detail_page.dart';
 
+import '../../view_models/todo_item_bean.dart';
 import 'home_controller.dart';
-import '../../utils/date_time_util.dart';
+import 'home_todo_list_item.dart';
 
 class HomeTodoList extends StatelessWidget {
   const HomeTodoList({super.key});
@@ -16,12 +16,25 @@ class HomeTodoList extends StatelessWidget {
         final data = _.todoItemList;
         final isEditMode = _.isEditMode.value;
         return ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
+          physics: const BouncingScrollPhysics(),
+          prototypeItem: HomeTodoListItem(
+            item: TodoItemBean(name: '', createDate: DateTime(2000), isAchieved: false, checked: false),
+            isEditMode: false,
+          ),
+          itemBuilder: (context, index) {
             final item = data[index];
             return HomeTodoListItem(
-              title: item.name,
-              subTitle: '${AppLocalizations.of(context)!.createDate}${item.createDate.toStringWithoutDeciSecond()}',
+              item: item,
               isEditMode: isEditMode,
+              onTap: () {
+                if (isEditMode) {
+                  _.select(index);
+                } else {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => TodoDetailPage(todoItemBean: item),
+                  ));
+                }
+              },
             );
           },
           itemCount: data.length,

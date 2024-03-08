@@ -17,14 +17,31 @@ class HomePage extends StatelessWidget {
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.todo),
             actions: [
-              TextButton(onPressed: _.edit, child: Text(AppLocalizations.of(context)!.edit))
+              Obx(() {
+                final isEditMode = _.isEditMode.value;
+                return isEditMode
+                    ? TextButton(onPressed: _.selectAll, child: Text(AppLocalizations.of(context)!.selectAll))
+                    : const SizedBox();
+              }),
+              Obx(() {
+                final isEditMode = _.isEditMode.value;
+                return isEditMode
+                    ? TextButton(onPressed: _.edit, child: Text(AppLocalizations.of(context)!.cancel))
+                    : Obx(() {
+                        final data = _.todoItemList;
+                        return IconButton(onPressed: data.isEmpty ? null : _.edit, icon: const Icon(Icons.delete));
+                      });
+              }),
             ],
           ),
           body: const HomeTodoList(),
-          floatingActionButton: FloatingActionButton(
-            onPressed: _.addTodo,
-            child: const Icon(Icons.add),
-          ),
+          floatingActionButton: Obx(() {
+            final isEditMode = _.isEditMode.value;
+            return FloatingActionButton(
+              onPressed: () => isEditMode ? _.delete : _.add(context),
+              child: isEditMode ? const Icon(Icons.delete) : const Icon(Icons.add),
+            );
+          }),
         );
       },
     );

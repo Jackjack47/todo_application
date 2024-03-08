@@ -1,5 +1,9 @@
 {
   "todo": "待办",
   "createDate": "创建日期：",
-  "edit": "编辑"
+  "edit": "编辑",
+  "cancel": "取消",
+  "selectAll": "全选",
+  "newTodo": "新建",
+  "confirm": "确定"
 }

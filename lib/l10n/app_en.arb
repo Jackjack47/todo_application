@@ -1,5 +1,9 @@
 {
   "todo": "Todo",
   "createDate": "Create date:",
-  "edit": "Edit"
+  "edit": "Edit",
+  "cancel": "Cancel",
+  "selectAll": "Select all",
+  "newTodo": "New",
+  "confirm": "Confirm"
 }
