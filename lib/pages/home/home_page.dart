@@ -15,15 +15,15 @@ class HomePage extends StatelessWidget {
       builder: (_) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.todo),
+            title: Text(AppLocalizations.of(context).todo),
             actions: [
               Obx(() => Offstage(
                 offstage: !_.isEditMode.value,
-                child: TextButton(onPressed: _.onSelectAllButtonTap, child: Text(AppLocalizations.of(context)!.selectAll)),
+                child: TextButton(onPressed: _.onSelectAllButtonTap, child: Text(AppLocalizations.of(context).selectAll)),
               )),
               Obx(() => Offstage(
                 offstage: !_.isEditMode.value,
-                child: TextButton(onPressed: _.onCancelButtonTap, child: Text(AppLocalizations.of(context)!.cancel)),
+                child: TextButton(onPressed: _.onCancelButtonTap, child: Text(AppLocalizations.of(context).cancel)),
               )),
               Obx(() => Offstage(
                     offstage: _.isEditMode.value,
