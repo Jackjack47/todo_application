@@ -1,4 +1,4 @@
-import './landmark_bean.dart';
+import 'landmark_item_bean.dart';
 
 class TodoItemBean {
   TodoItemBean({
@@ -13,7 +13,7 @@ class TodoItemBean {
 
   final String todo;
 
-  final List<LandmarkBean> landmarks;
+  final List<LandmarkItemBean> landmarks;
 
   final bool isAchieved;
 
@@ -22,7 +22,7 @@ class TodoItemBean {
   TodoItemBean copyWith({
     int? id,
     String? todo,
-    List<LandmarkBean>? landmarks,
+    List<LandmarkItemBean>? landmarks,
     bool? isAchieved,
     bool? checked,
   }) {

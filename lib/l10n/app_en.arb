@@ -1,15 +1,17 @@
 {
   "todo": "Todo",
   "createDate": "Create date:",
-  "edit": "Edit",
+  "detail": "Todo Detail",
   "cancel": "Cancel",
   "selectAll": "Select all",
-  "newTodo": "New",
+  "newTodo": "New Todo",
   "confirm": "Confirm",
-  "todoDescriptionHint": "Please enter your todo",
-  "todoDescriptionEmptyTip": "Todo can't be empty!",
-  "todoDeadlineHint": "Click for setting deadline for your todo",
-  "todoDeadlineLabel": "Deadline",
-  "todoDeadlineEmptyTip": "Deadline can't be empty!",
-  "todoDeadlineErrorTip": "Deadline must after now!"
+  "todoHint": "Please enter your todo",
+  "todoEmptyTip": "Todo can't be empty!",
+  "landmark": "Landmark",
+  "newLandmark": "New Landmark",
+  "landmarkHint": "Please enter your landmark",
+  "landmarkEmptyTip": "Landmark can't be empty!",
+  "deleteTodoAlertDialogTitle": "Delete Todo",
+  "deleteAlertDialogMessage": "Are you sure you want to delete the selected item?"
 }

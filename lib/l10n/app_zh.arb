@@ -1,15 +1,17 @@
 {
   "todo": "待办",
   "createDate": "创建日期：",
-  "edit": "编辑",
+  "detail": "待办详情",
   "cancel": "取消",
   "selectAll": "全选",
-  "newTodo": "新建",
+  "newTodo": "新建待办",
   "confirm": "确定",
-  "todoDescriptionHint": "请输入你的待办事项",
-  "todoDescriptionEmptyTip": "待办事项不能为空！",
-  "todoDeadlineHint": "点击为你的待办事项设置截止时间",
-  "todoDeadlineLabel": "截止时间",
-  "todoDeadlineEmptyTip": "请选择截止时间！",
-  "todoDeadlineErrorTip": "截止时间必须晚于当前时间！"
+  "todoHint": "请输入你的待办事项",
+  "todoEmptyTip": "待办事项不能为空！",
+  "landmark": "里程碑",
+  "newLandmark": "新建里程碑",
+  "landmarkHint": "请输入你的里程碑",
+  "landmarkEmptyTip": "里程碑不能为空！",
+  "deleteTodoAlertDialogTitle": "删除待办",
+  "deleteAlertDialogMessage": "确认删除所选项吗？"
 }

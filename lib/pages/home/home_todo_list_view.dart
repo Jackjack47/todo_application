@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../view_models/landmark_bean.dart';
-import '../../view_models/todo_item_bean.dart';
+import '../../view_models/bean/landmark_item_bean.dart';
+import '../../view_models/bean/todo_item_bean.dart';
 import 'home_controller.dart';
 import 'home_todo_list_item_view.dart';
 
@@ -20,7 +20,7 @@ class HomeTodoListView extends StatelessWidget {
           prototypeItem: HomeTodoListItemView(
             item: TodoItemBean(
               todo: "todo",
-              landmarks: [LandmarkBean(landmark: "created", createDate: DateTime.now())],
+              landmarks: [LandmarkItemBean(landmark: "created", createDate: DateTime.now())],
               isAchieved: false,
               checked: false,
             ),
@@ -31,7 +31,7 @@ class HomeTodoListView extends StatelessWidget {
             return HomeTodoListItemView(
               item: item,
               isEditMode: isEditMode,
-              onTap: () => _.onListItemTap(index),
+              onTap: () => _.onListItemTap(context, index),
             );
           },
           itemCount: data.length,

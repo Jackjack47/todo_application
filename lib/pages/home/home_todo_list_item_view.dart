@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../view_models/todo_item_bean.dart';
+import '../../view_models/bean/todo_item_bean.dart';
 import '../../utils/date_time_util.dart';
 
 class HomeTodoListItemView extends StatelessWidget {
@@ -21,12 +21,21 @@ class HomeTodoListItemView extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
+    final containerColor = item.isAchieved ? colorScheme.tertiaryContainer : colorScheme.primaryContainer;
+    final onContainerColor = item.isAchieved ? colorScheme.onTertiaryContainer : colorScheme.onPrimaryContainer;
+
     return InkWell(
       onTap: onTap,
       customBorder: const Border(),
+      splashColor: onContainerColor.withOpacity(.08),
+      overlayColor: MaterialStateProperty.resolveWith((states) {
+        if (states.contains(MaterialState.pressed)) {
+          return onContainerColor.withOpacity(.1);
+        }
+      }),
       child: Ink(
         decoration: ShapeDecoration(
-          color: item.isAchieved ? colorScheme.tertiaryContainer : colorScheme.secondaryContainer,
+          color: containerColor,
           shape: const Border(),
         ),
         padding: isEditMode
@@ -50,24 +59,18 @@ class HomeTodoListItemView extends StatelessWidget {
                     item.todo,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: textTheme.headlineMedium?.copyWith(
-                      color: colorScheme.onSecondaryContainer,
-                    ),
+                    style: textTheme.headlineMedium?.copyWith(color: onContainerColor),
                   ),
                   Text.rich(
                     TextSpan(
-                      text: '${item.landmarks.last.createDate.toStringWithoutSecond()}  ',
+                      text: '${item.landmarks.first.createDate.toStringWithoutSecond()}  ',
                       children: [
-                        TextSpan(
-                          text: item.landmarks.last.landmark,
-                        )
+                        TextSpan(text: item.landmarks.first.landmark),
                       ],
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.clip,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSecondaryContainer,
-                    ),
+                    style: textTheme.bodyMedium?.copyWith(color: onContainerColor),
                   ),
                 ],
               ),

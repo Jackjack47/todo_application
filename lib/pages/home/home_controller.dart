@@ -3,20 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../view_models/todo_item_bean.dart';
-import '../../view_models/landmark_bean.dart';
+import '../../view_models/bean/todo_item_bean.dart';
+import '../../view_models/bean/landmark_item_bean.dart';
+import '../todo_detail/todo_detail_page.dart';
+import '../widgets/delete_todo_alert_dialog.dart';
+import '../widgets/new_todo_dialog.dart';
 
 class HomeController extends GetxController {
   RxList<TodoItemBean> todoItemList = RxList([
     TodoItemBean(
       todo: "todo",
-      landmarks: [LandmarkBean(landmark: "created", createDate: DateTime.now())],
+      landmarks: [LandmarkItemBean(landmark: "Created", createDate: DateTime.now())],
       isAchieved: false,
       checked: false,
     ),
     TodoItemBean(
       todo: "todo1",
-      landmarks: [LandmarkBean(landmark: "created", createDate: DateTime.now())],
+      landmarks: [LandmarkItemBean(landmark: "Created", createDate: DateTime.now())],
       isAchieved: true,
       checked: false,
     )
@@ -75,15 +78,25 @@ class HomeController extends GetxController {
     todoItemList.value = todoItemList.map((e) => e.copyWith(checked: !_allChecked)).toList();
   }
 
-  void onListItemTap(int index) {
+  void onListItemTap(BuildContext context, int index) {
     if (isEditMode.value) {
       final item = todoItemList[index];
       todoItemList[index] = item.copyWith(checked: !item.checked);
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => TodoDetailPage(item: todoItemList[index])));
     }
   }
 
-  void onFabTap(BuildContext context) {
-    if (isEditMode.value) {
+  onAddButtonTap(BuildContext context) async {
+    final result = await showDialog<TodoItemBean>(context: context, builder: (context) => const NewTodoDialog());
+    if (result != null) {
+      todoItemList.add(result);
+    }
+  }
+
+  void onDeleteFabTap(BuildContext context) async {
+    final result = await showDialog<bool>(context: context, builder: (_) => const DeleteTodoAlertDialog());
+    if (result != null && result) {
       todoItemList.value = todoItemList.where((e) => !e.checked).toList();
       _exitEditMode();
     }

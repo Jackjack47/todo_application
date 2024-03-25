@@ -18,27 +18,35 @@ class HomePage extends StatelessWidget {
             title: Text(AppLocalizations.of(context).todo),
             actions: [
               Obx(() => Offstage(
-                offstage: !_.isEditMode.value,
-                child: TextButton(onPressed: _.onSelectAllButtonTap, child: Text(AppLocalizations.of(context).selectAll)),
-              )),
+                    offstage: !_.isEditMode.value,
+                    child: TextButton(
+                        onPressed: _.onSelectAllButtonTap, child: Text(AppLocalizations.of(context).selectAll)),
+                  )),
               Obx(() => Offstage(
-                offstage: !_.isEditMode.value,
-                child: TextButton(onPressed: _.onCancelButtonTap, child: Text(AppLocalizations.of(context).cancel)),
-              )),
+                    offstage: !_.isEditMode.value,
+                    child: TextButton(onPressed: _.onCancelButtonTap, child: Text(AppLocalizations.of(context).cancel)),
+                  )),
               Obx(() => Offstage(
                     offstage: _.isEditMode.value,
-                    child: IconButton(onPressed: _.onDeleteButtonTap, icon: const Icon(Icons.delete)),
+                    child: Obx(() => IconButton(
+                          onPressed: _.todoItemList.isEmpty ? null : _.onDeleteButtonTap,
+                          icon: const Icon(Icons.delete),
+                        )),
+                  )),
+              Obx(() => Offstage(
+                    offstage: _.isEditMode.value,
+                    child: IconButton(onPressed: () => _.onAddButtonTap(context), icon: const Icon(Icons.add)),
                   )),
             ],
           ),
           body: const HomeTodoListView(),
-          floatingActionButton: Obx(() {
-            final isEditMode = _.isEditMode.value;
-            return FloatingActionButton(
-              onPressed: () => _.onFabTap(context),
-              child: isEditMode ? const Icon(Icons.delete) : const Icon(Icons.add),
-            );
-          }),
+          floatingActionButton: Obx(() => Offstage(
+                offstage: !_.isEditMode.value,
+                child: FloatingActionButton(
+                  onPressed: () => _.onDeleteFabTap(context),
+                  child: const Icon(Icons.delete),
+                ),
+              )),
         );
       },
     );
